@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 
 //Made to represent node of a singly linked list
@@ -11,35 +12,48 @@ struct Node{
 //Represents begining and end of the linked list
 struct SinglyLinkedList {
     Node* head;
-    
     Node* tail;
     
 }typedef SinglyLinkedList;
 
 
-SinglyLinkedList addNode(SinglyLinkedList list, int data) {
-   
-    Node newNode;
+SinglyLinkedList makeList() {
+    SinglyLinkedList list;
 
-    newNode.data = data;
+    list.tail = malloc(sizeof(Node));
+    list.tail->next = NULL;
+    list.head = list.tail;
+
+    return list;
+}
+
+SinglyLinkedList addNode(SinglyLinkedList list, int data) {
+    
+    Node* newNode = (Node*) malloc(sizeof(Node));
+    newNode->data = data;
+    
 
     if (list.head == NULL) {
-        list.head = &newNode;
-        list.tail = &newNode;
-        printf("If %d",newNode.data);
+
+        list.head = newNode;
+        list.tail = newNode;
+
+        printf("If %d \n\n",newNode->data);
         
     }
 
-    else {printf("Else %d",newNode.data);
-        list.tail->next = &newNode;
-        list.tail = &newNode;
+    else {
+        printf("Else %d", newNode->data);
+        list.tail->next = newNode;
+        list.tail = newNode;
     }
+
+    return list;
 }
 
 
 void display(SinglyLinkedList list) {
 
-    Node current = *list.head;
 
     if (list.head == NULL) {
         printf("List is empty");
@@ -47,12 +61,13 @@ void display(SinglyLinkedList list) {
     }
 
     printf("Nodes of singly linked list: ");
-    while(&current !=  NULL) {
+    int i = 0;
+    while(list.head !=  NULL) {
         //Prints each node by incrementing pointer
-        printf("%d ", current.data);
-        current = *current.next;
+        i++;
+        list.head = list.head->next;
     }
-    printf("\n");
+    printf("%d \n", i);
 
 
 }
@@ -60,20 +75,23 @@ void display(SinglyLinkedList list) {
 
 int main() {
 
-    SinglyLinkedList sList;
+    SinglyLinkedList sList = makeList();
 
-    printf("%p \n", &sList.head);
+    printf("%d \n", sList.head->data);
  
-    addNode(sList, 1);
-    printf("&d \n", sList.head->data);
-   
-    addNode(sList, 2);
-    addNode(sList, 3);
-    addNode(sList, 4);
+    sList = addNode(sList, 1);
+    //display(sList);
+    printf("%d \n", sList.head->data);
+
+    sList = addNode(sList, 2);
+    sList = addNode(sList, 3);
+    sList = addNode(sList, 4);
+
+    //display(sList);
 
     
 
-    display(sList);
+    
 
     return 0;
 }
