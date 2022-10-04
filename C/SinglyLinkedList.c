@@ -10,51 +10,36 @@ struct Node{
 
 
 //Represents begining and end of the linked list
-struct SinglyLinkedList {
     Node* head;
     Node* tail;
     
-}typedef SinglyLinkedList;
-
-//makeList() will initialize a SinglyLinkedList 
-SinglyLinkedList makeList() {
-    SinglyLinkedList list;
-
-    list.tail = malloc(sizeof(Node));
-    list.tail->next = NULL;
-    list.head = list.tail;
-
-    return list;
-}
 
 //addNode() should add a new node to the list
-SinglyLinkedList addNode(SinglyLinkedList list, int data) {
+void addNode(int data) {
     
     //makes a new node
     Node* newNode = malloc(sizeof(Node));
+    
     newNode->data = data;
+    newNode->next = NULL;
     
 
     //checks if the list is empty
-    if (list.head == NULL) {
+    if (head == NULL) {
 
         //head and tail point to new node if its empty
-        list.head = newNode;
-        list.tail = newNode;
+        head = newNode;
 
-        printf("If %d \n\n",newNode->data);
-        
     }
 
     else {
-        printf("Else %d \n\n", newNode->data);
         //new node gets pointed to by tail.next
-        list.tail->next = newNode;
+        tail->next = newNode;
         //new node becomes new tail
-        list.tail = newNode;
     }
+    
+    tail =  newNode;
 
-    return list;
 }
 
 //display() should show all the nodes present in the list
@@ -69,14 +54,15 @@ void display() {
         return;
     }
 
-    printf("Nodes of singly linked list: ");
-    int i = 0;
+    printf("Nodes of singly linked list:\n");
+    
     while(current !=  NULL) {
-        //Prints each node by incrementing pointer
-        i++;
-        list.head = list.head->next;
+
+        printf("%d \n",current->data);
+        //Prints the value of each node by incrementing pointer
+    current = current->next;
     }
-    printf("%d \n", i);
+
 
 
 }
@@ -84,21 +70,16 @@ void display() {
 
 int main() {
 
-    SinglyLinkedList sList = makeList();
-
-    printf("%d \n", sList.head->data);
- 
     
-   
-    //printf("%d \n", sList.head->data);
+    
     //Adds nodes to the list
-    sList = addNode(sList, 1);
-    sList = addNode(sList, 2);
-    sList = addNode(sList, 3);
-    sList = addNode(sList, 4);
+    addNode(1);
+    addNode(2);
+    addNode(3);
+    addNode(4);
 
     //Displays the nodes present in the list
-    //display(sList);
+    display();
 
     return 0;
 }
