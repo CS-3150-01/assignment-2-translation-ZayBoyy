@@ -2,10 +2,16 @@
 #include <stdbool.h>
 #include <string.h>
 
+//added arguments so they can be referenced later
 int main(int argc, char* argv[]) {
 
+//Multi-dimensional character array for a 2D plane
 char map[20][100];
+
+//points undefined values to zero
 memset(&map, 0, 20*100*sizeof(char));
+
+//starting location for the "player"
 map[2][2] = 'P';
 
 bool proceed = true;
@@ -13,10 +19,14 @@ bool argsCheck = false;
 
 int argsRunIndex = 0;
 
-char directions[][5] = {"North", "East","South", "West"};
-int directionX[4] = {0, -1, 0, 1};
-int directionY[4] = {1, 0, -1, 0};
+//These arrays are for traversing the map
+//Each correspond in the formatted order
+char directions[][5] = {"North", "East", "South", "West"};
+int directionX[4] =    {   0,      -1,      0,       1  };
+int directionY[4] =    {   1,       0,     -1,       0  };
 
+
+//The above arrays can all be controlled by using this as the index to choose direction
 int currentDirection = 0;
 
 int currentPosition[] = {2,2};
@@ -26,17 +36,22 @@ if(argc > 1) {
     argsCheck = true;
 }
 
+//this loops until you quit or kill the terminal
 while(proceed == true) {
 
+    //Nested for loops to show the map to the user
     for(int i=0; i<20; i++) {
         for(int j=0; j<100; j++) {
             if (map[i][j] == 0) {
                 printf("%c", 9904);
+                //Empty values are displayed as a symbol
             }
             else {
+                //Displays any data inside the array
                 printf("%c", map[i][j]);
             }
         }
+        //new line
         printf("\n");
     }
 
